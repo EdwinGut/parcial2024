@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_HOST=localhost
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=estadoClima
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    container_name: pg-database
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Siglo212024
+      POSTGRES_DB: estadoClima
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./backup.sql:/docker-entrypoint-initdb.d/backup.sql
